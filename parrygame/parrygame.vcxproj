@@ -145,6 +145,7 @@
     <ClCompile Include="Sourse\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Sourse\ISceneChanger.h" />
     <ClInclude Include="Sourse\Scene.h" />
     <ClInclude Include="Sourse\SceneManager.h" />
     <ClInclude Include="Sourse\TitleScene.h" />

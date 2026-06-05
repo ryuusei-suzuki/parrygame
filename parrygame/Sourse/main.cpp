@@ -1,5 +1,6 @@
 #include "DxLib.h"
-
+#include "SceneManager.h"
+#include "TitleScene.h"
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
 
@@ -7,12 +8,24 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	{
 		return -1;			// エラーが起きたら直ちに終了
 	}
+	SetMouseDispFlag(TRUE);//マウスポインター表示
+	SceneManager sceneManager;
+	sceneManager.ChangeScene(std::make_unique<TitleScene>(sceneManager));
+	while (ProcessMessage() == 0)
+	{
+		ClearDrawScreen();
 
-	DrawPixel(320, 240, GetColor(255, 255, 255));	// 点を打つ
+		sceneManager.Update();     // 更新
+		sceneManager.Draw();       // 描画
 
-	WaitKey();				// キー入力待ち
+		ScreenFlip();              // 画面を更新
 
-	DxLib_End();				// ＤＸライブラリ使用の終了処理
+		if (CheckHitKey(KEY_INPUT_ESCAPE))
+		{
+			return 0;				// ソフトの終了
+		}
+		
+	}
 
-	return 0;				// ソフトの終了
+	
 }
