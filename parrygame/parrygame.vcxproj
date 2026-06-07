@@ -139,12 +139,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Sourse\GameScene.cpp" />
     <ClCompile Include="Sourse\Scene.cpp" />
     <ClCompile Include="Sourse\SceneManager.cpp" />
     <ClCompile Include="Sourse\TitleScene.cpp" />
     <ClCompile Include="Sourse\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Sourse\GameScene.h" />
     <ClInclude Include="Sourse\ISceneChanger.h" />
     <ClInclude Include="Sourse\Scene.h" />
     <ClInclude Include="Sourse\SceneManager.h" />

@@ -1,5 +1,5 @@
 #include "TitleScene.h"
-
+#include "GameScene.h"
 TitleScene::TitleScene(ISceneChanger& changer)
 	: changer_(changer)  //changer_‚É•Û‘¶
 {
@@ -21,7 +21,7 @@ void TitleScene::Update()
 
 	if (isHover && GetMouseInput() & MOUSE_INPUT_LEFT)
 	{
-
+		changer_.ChangeScene(std::make_unique<GameScene>());
 	}
 	if (isHover)
 	{
