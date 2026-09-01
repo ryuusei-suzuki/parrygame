@@ -14,4 +14,3 @@ public:
     /// @param next Ÿ‚ÌƒV[ƒ“
     virtual void ChangeScene(std::unique_ptr<Scene> next) = 0;
 };
-

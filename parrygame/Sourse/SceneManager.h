@@ -10,7 +10,7 @@ public:
     void ChangeScene(std::unique_ptr<Scene> next) override;
 
     /// @brief 現在のシーンのUpdateを呼ぶ 毎フレーム呼ぶこと
-    void Update();
+    void Update(float deltaTime);
 
     /// @brief 現在のシーンのDrawを呼ぶ 毎フレーム呼ぶこと
     void Draw();
@@ -18,4 +18,3 @@ public:
 private:
     std::unique_ptr<Scene> currentScene_; ///< 現在のシーン
 };
-

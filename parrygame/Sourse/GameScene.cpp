@@ -1,5 +1,6 @@
 #include "GameScene.h"
 #include <DxLib.h>
+
 GameScene::GameScene()
 {
 }
@@ -8,12 +9,12 @@ GameScene::~GameScene()
 {
 }
 
-void GameScene::Update()
+void GameScene::Update(float deltaTime)
 {
-
+	enemy_.Update(deltaTime);
 }
 
 void GameScene::Draw()
 {
-	DrawString(0, 0, "Game Scene", GetColor(255, 255, 255), 0);
+	enemy_.Draw();
 }

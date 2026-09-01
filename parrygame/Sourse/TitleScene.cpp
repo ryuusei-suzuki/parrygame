@@ -1,23 +1,24 @@
 #include "TitleScene.h"
 #include "GameScene.h"
+
 TitleScene::TitleScene(ISceneChanger& changer)
 	: changer_(changer)  //changer_に保存
 {
-
+	titleHandle_ = LoadGraph("data/Title.png");
 }
 
 TitleScene::~TitleScene()
 {
 }
 
-void TitleScene::Update()
+void TitleScene::Update(float deltaTime)
 {
 	//マウス座標を取得
 	int mouseX, mouseY;
 	GetMousePoint(&mouseX, &mouseY);
 
 	bool isHover = (mouseX >= buttonLeft_ && mouseX <= buttonRight_ &&
-					mouseY >= buttonTop_ && mouseY <= buttonBottom_);
+					mouseY >= buttonTop_ && mouseY <= buttonBottom_);//マウスがボックスに触れているか
 
 	if (isHover && GetMouseInput() & MOUSE_INPUT_LEFT)
 	{
@@ -34,7 +35,7 @@ void TitleScene::Update()
 
 void TitleScene::Draw()
 {
-	DrawString(0, 0, "見切り侍", GetColor(255, 255, 255), 0);
+	DrawExtendGraph(0, 0, 1280, 720, titleHandle_, TRUE);
 	DrawBox(buttonLeft_, buttonTop_, buttonRight_, buttonBottom_, buttonColor_, TRUE);
-	DrawString(buttonLeft_ + 50, buttonTop_ + 15, "START", GetColor(0, 0, 0), 0);
+	DrawString(buttonLeft_ + 50, buttonTop_ + 15, "hajimeru", GetColor(0, 0, 0), 0);
 }
