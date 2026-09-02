@@ -1,20 +1,20 @@
-#pragma once
+ï»¿#pragma once
 #include "Scene.h"
 #include "ISceneChanger.h"
 #include <memory>
 class SceneManager : public ISceneChanger
 {
 public:
-    /// @brief ƒV[ƒ“‚ğØ‚è‘Ö‚¦‚é
-    /// @param next Ÿ‚ÌƒV[ƒ“
+    /// @brief ã‚·ãƒ¼ãƒ³ã‚’åˆ‡ã‚Šæ›¿ãˆã‚‹
+    /// @param next æ¬¡ã®ã‚·ãƒ¼ãƒ³
     void ChangeScene(std::unique_ptr<Scene> next) override;
 
-    /// @brief Œ»İ‚ÌƒV[ƒ“‚ÌUpdate‚ğŒÄ‚Ô –ˆƒtƒŒ[ƒ€ŒÄ‚Ô‚±‚Æ
+    /// @brief ç¾åœ¨ã®ã‚·ãƒ¼ãƒ³ã®Updateã‚’å‘¼ã¶ æ¯ãƒ•ãƒ¬ãƒ¼ãƒ å‘¼ã¶ã“ã¨
     void Update(float deltaTime);
 
-    /// @brief Œ»İ‚ÌƒV[ƒ“‚ÌDraw‚ğŒÄ‚Ô –ˆƒtƒŒ[ƒ€ŒÄ‚Ô‚±‚Æ
+    /// @brief ç¾åœ¨ã®ã‚·ãƒ¼ãƒ³ã®Drawã‚’å‘¼ã¶ æ¯ãƒ•ãƒ¬ãƒ¼ãƒ å‘¼ã¶ã“ã¨
     void Draw();
 
 private:
-    std::unique_ptr<Scene> currentScene_; ///< Œ»İ‚ÌƒV[ƒ“
+    std::unique_ptr<Scene> currentScene_; ///< ç¾åœ¨ã®ã‚·ãƒ¼ãƒ³
 };

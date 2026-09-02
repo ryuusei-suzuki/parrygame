@@ -142,6 +142,7 @@
     <ClCompile Include="Sourse\Enemy.cpp" />
     <ClCompile Include="Sourse\GameScene.cpp" />
     <ClCompile Include="Sourse\ISceneChanger.cpp" />
+    <ClCompile Include="Sourse\Player.cpp" />
     <ClCompile Include="Sourse\Scene.cpp" />
     <ClCompile Include="Sourse\SceneManager.cpp" />
     <ClCompile Include="Sourse\TitleScene.cpp" />
@@ -151,6 +152,7 @@
     <ClInclude Include="Sourse\Enemy.h" />
     <ClInclude Include="Sourse\GameScene.h" />
     <ClInclude Include="Sourse\ISceneChanger.h" />
+    <ClInclude Include="Sourse\Player.h" />
     <ClInclude Include="Sourse\Scene.h" />
     <ClInclude Include="Sourse\SceneManager.h" />
     <ClInclude Include="Sourse\TitleScene.h" />

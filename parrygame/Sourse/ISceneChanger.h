@@ -1,16 +1,16 @@
-#pragma once
+ï»¿#pragma once
 #include <memory>
 
-class Scene; // ‘O•ûéŒ¾
+class Scene; // å‰æ–¹å®£è¨€
 
-/// @brief ƒV[ƒ“Ø‚è‘Ö‚¦‚Ì‘‹Œû‚Æ‚È‚éƒCƒ“ƒ^[ƒtƒF[ƒX
-/// SceneManager‚ª‚±‚ê‚ğŒp³‚µ‚ÄÀÛ‚ÌØ‚è‘Ö‚¦ˆ—‚ğÀ‘•‚·‚é
+/// @brief ã‚·ãƒ¼ãƒ³åˆ‡ã‚Šæ›¿ãˆã®çª“å£ã¨ãªã‚‹ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹
+/// SceneManagerãŒã“ã‚Œã‚’ç¶™æ‰¿ã—ã¦å®Ÿéš›ã®åˆ‡ã‚Šæ›¿ãˆå‡¦ç†ã‚’å®Ÿè£…ã™ã‚‹
 class ISceneChanger
 {
 public:
     virtual ~ISceneChanger() = default;
 
-    /// @brief ƒV[ƒ“‚ğØ‚è‘Ö‚¦‚é
-    /// @param next Ÿ‚ÌƒV[ƒ“
+    /// @brief ã‚·ãƒ¼ãƒ³ã‚’åˆ‡ã‚Šæ›¿ãˆã‚‹
+    /// @param next æ¬¡ã®ã‚·ãƒ¼ãƒ³
     virtual void ChangeScene(std::unique_ptr<Scene> next) = 0;
 };
