@@ -110,28 +110,26 @@ void Enemy::Update(float deltaTime)
 
 void Enemy::Draw()
 {
+	
+
 	int handle = idleHandles_[0];
 
 	switch (state_)
 	{
 	case State::Idle:
 		handle = idleHandles_[FrameIndex(Timer, Idtimer, kIdleFrameCount)];
-		DrawString(0, 0, "待機", GetColor(255, 255, 255), 0);
 		break;
 	case State::Telegraph:
 		// 敵側はもう「構え」ポーズを使わない - Idleのまま待機させ、
 		// 攻撃が来ることは「!」の警告表示で伝える(GameScene::Draw参照)。
 		handle = idleHandles_[FrameIndex(Timer, Tetimer, kIdleFrameCount)];
-		DrawString(0, 0, "予備動作", GetColor(255, 255, 255), 0);
 		break;
 	case State::Attack:
 		handle = attackHandles_[FrameIndex(Timer, Attimer, kAttackFrameCount)];
-		DrawString(0, 0, "攻撃", GetColor(255, 255, 255), 0);
 		break;
 	case State::Recovery:
 		// パックに専用の硬直ポーズがないので、Idleの最終フレームで止める。
 		handle = idleHandles_[kIdleFrameCount - 1];
-		DrawString(0, 0, "硬直", GetColor(255, 255, 255), 0);
 		break;
 	}
 

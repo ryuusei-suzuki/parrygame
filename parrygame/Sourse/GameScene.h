@@ -46,9 +46,7 @@ private:
 	static const int kParryFailLimit = 3;
 
 	// Telegraph中の「!」警告表示用の大きいフォント。一度だけ作成して使い回す。
-	// 重要: 毎フレームSetFontSize()/DrawString()を呼ばないこと -
-	// SetFontSizeは呼ぶたびにデフォルトフォントのGDIリソースを作り直すため、
-	// 1秒間に60回もそれをやるとハンドルがリークし、数秒で処理が重くなる。
+
 	int warningFontHandle_ = -1;
 
 	// クリア画面の「クリア!」表示用の大きいフォント。理由は

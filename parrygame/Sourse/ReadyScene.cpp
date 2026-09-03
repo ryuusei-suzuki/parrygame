@@ -3,9 +3,6 @@
 #include <cstring>
 #include <cstdio>
 
-// 日本語文字列リテラルのエンコーディングについては、TitleScene.cppの
-// 冒頭コメントを参照。このファイルも同じくUTF-8(BOMあり)で保存し、
-// SetUseCharCodeFormat(DX_CHARCODEFORMAT_UTF8)は呼ばないこと。
 
 namespace
 {
@@ -43,9 +40,7 @@ void ReadyScene::Update(float deltaTime)
 	if (keyJustPressed)
 	{
 		changer_.ChangeScene(std::make_unique<GameScene>(changer_));
-		// 重要: 上のChangeScene()でthisがすでに破棄されている可能性がある
-		// (SceneManagerが現在のシーンを差し替えて削除するため)。
-		// そのため、この呼び出しの後はReadySceneのメンバに触れてはいけない。
+		
 		return;
 	}
 }

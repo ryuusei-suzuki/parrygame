@@ -40,9 +40,7 @@ public:
 	// 4つまとめて倍率をかければテンポの速さ/遅さを調整できる -
 	// Telegraphが一番長く、一番「見て反応しやすい」フェーズであるという
 	// 比率はできるだけ保つこと。
-	// テスト用に全体を10倍遅くしている(元の値: 0.2f / 0.1f / 0.07f / 0.1f)。
-	// 戦闘のテンポが意図通りか確認できたら、元の値に戻すか、
-	// 好みのテンポに再調整する。
+	
 	float Idtimer = 2.0f;
 	float Tetimer = 1.0f;
 	float Attimer = 0.7f;
@@ -57,9 +55,7 @@ public:
 	// 動作はするが、その分は実質的に切り詰められる(前者はTelegraph開始
 	// より前には遡れず、後者はRecoveryに入った瞬間に強制的に受付終了
 	// するため)。
-	// こちらもテンポに合わせて同じ倍率(10倍)で伸ばしてある
-	// (元の値: 0.06f / 0.04f)。受付時間だけ相対的に広がったり
-	// 狭まったりしないよう、他のタイマーと同じ比率を保っている。
+	
 	float ParryWindowBeforeAttack = 0.6f;
 	float ParryWindowAfterAttack = 0.4f;
 
@@ -75,9 +71,8 @@ private:
 
 	// スプライトシート。LoadDivGraphで1フレームごとのグラフィック
 	// ハンドルに分割している。各フレームは128x128(data/Samurai/*.png参照)。
-	// IdleはTelegraphとRecoveryのアニメーションも兼ねている - 敵側は
-	// 「構え」ポーズを一切使わない仕様なので、専用のTelegraph/Recovery
-	// シートは存在せず、どちらもIdleを使い回しても違和感がない。
+	// IdleはTelegraphとRecoveryのアニメーションも兼ねている 
+	
 	static const int kIdleFrameCount = 6;
 	static const int kAttackFrameCount = 4;     // Attack_1.png
 	int idleHandles_[kIdleFrameCount] = {};

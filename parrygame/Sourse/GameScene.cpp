@@ -89,9 +89,7 @@ void GameScene::Update(float deltaTime)
 		{
 			changer_.ChangeScene(std::make_unique<TitleScene>(changer_));
 		}
-		// 重要: 上のChangeScene()でthisがすでに破棄されている可能性がある
-		// (SceneManagerが現在のシーンを差し替えて削除するため)。
-		// そのため、この呼び出しの後はGameSceneのメンバに触れてはいけない。
+		
 		return;
 	}
 
@@ -99,8 +97,8 @@ void GameScene::Update(float deltaTime)
 
 	// パリィ成功後にプロテクトポーズを表示し続けている場合、敵が刀を
 	// 振り終えてRecoveryに入ったタイミングで、プレイヤーも待機ポーズに
-	// 戻す。こうすることで「敵が刀を振っている間ずっと受け止め続ける」
-	// という見た目になる(Player::PlayParrySuccess参照)。
+	// 戻す。
+	
 	if (isGuardingAfterParry_ && enemy_.state_ == State::Recovery)
 	{
 		player_.EndParrySuccess();
@@ -138,7 +136,7 @@ void GameScene::Update(float deltaTime)
 			// 上のRecoveryチェックで振り終わったタイミングに合わせて消す。
 			player_.PlayParrySuccess();
 			isGuardingAfterParry_ = true;
-			// 刀と刀がぶつかる「打ち合い」の音。TopPositionFlag(第3引数)を
+			// 刀と刀がぶつかる「打ち合い」の音。TopPositionFlagを
 			// TRUEにして、連続でパリィしたときも毎回頭から再生されるようにする。
 			PlaySoundMem(parrySuccessSoundHandle_, DX_PLAYTYPE_BACK, TRUE);
 		}
@@ -154,13 +152,13 @@ void GameScene::Update(float deltaTime)
 	}
 	else if (keyJustPressed)
 	{
-		// 受付時間外にSPACEを押した場合(連打対策)。
-		// isInWindowがfalseの間は上のブロックに入らないので、ここに来るのは
-		// 「受付時間ではないのにSPACEを押した」場合だけ。これを何もペナルティ
-		// なしにしてしまうと、タイミングを見ずに連打するだけでクリアできて
-		// しまう。見当違いのタイミングで刀を振る「空振り」として、狙って
-		// 見切ったときと同じように失敗扱いにすることで、闇雲な連打では
-		// クリアできないようにしている。
+		/* 受付時間外にSPACEを押した場合(連打対策)。
+		 isInWindowがfalseの間は上のブロックに入らないので、ここに来るのは
+		 「受付時間ではないのにSPACEを押した」場合だけ。これを何もペナルティ
+		 なしにしてしまうと、タイミングを見ずに連打するだけでクリアできて
+		 しまう。見当違いのタイミングで刀を振る「空振り」として、狙って
+		 見切ったときと同じように失敗扱いにすることで、闇雲な連打では
+		 クリアできないようにしている。*/
 		parryFailCount_++;
 		player_.PlayParryFail();
 	}
@@ -190,8 +188,7 @@ void GameScene::Draw()
 	if (result_ == GameResult::Cleared)
 	{
 		// クリア画面は通常のアリーナ背景ではなく、専用の祝勝演出
-		// (data/Clear.png)を表示する。プレイ中のHUDやデバッグ表示は
-		// もう不要なので、ここで完結させて早めにreturnしている。
+		// (data/Clear.png)を表示する。
 		DrawExtendGraph(0, 0, 1280, 720, clearHandle_, TRUE);
 
 		DrawBox(kClearBoxLeft, kClearBoxTop, kClearBoxRight, kClearBoxBottom, GetColor(0, 0, 0), TRUE);
@@ -230,16 +227,9 @@ void GameScene::Draw()
 		DrawStringToHandle(620, 600, "!", GetColor(255, 220, 0), warningFontHandle_);
 	}
 
-	// 「!」が出たらSPACEを押す、という操作方法や勝敗条件、デバッグ用の
-	// フレーム情報は、対戦前のReadyScene(「スペースキーで勝負」画面)側で
-	// まとめて表示するようにしたので、ここ(プレイ中のHUD)には出さない。
-	// 理由: プレイ中の画面はできるだけシンプルにして、対戦そのものに
-	// 集中してもらいたいため。
+	
 
-	// Cleared以外でこのDraw()に来るのはPlaying(通常プレイ中)と
-	// GameOverの2パターンがあるので、ここは必ずGameOverかどうかを
-	// 確認してから表示する(確認を忘れると、プレイ中もずっと
-	// 「ゲームオーバー」が表示されたままになってしまう)。
+	
 	if (result_ == GameResult::GameOver)
 	{
 		DrawString(480, 300, "ゲームオーバー", GetColor(255, 0, 0), 0);

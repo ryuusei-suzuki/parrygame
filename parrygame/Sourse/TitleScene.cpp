@@ -2,17 +2,6 @@
 #include "ReadyScene.h"
 #include <cstring>
 
-// 以下の日本語の文字列リテラル("見切り侍"、"プレイ")についての補足:
-// このファイルはUTF-8(BOMあり)で保存してあり、Visual Studioが
-// システムのコードページ(932/Shift-JIS)と誤解して文字を壊さないように
-// している。ただし、コンパイラに/utf-8(または/execution-charset:utf-8)
-// オプションを設定していないため、このマシンでのMSVCのデフォルトの
-// 実行時文字コードは依然として932であり、コンパイル後のバイナリでは
-// これらの文字列はShift-JISのバイト列に変換される。DxLibの文字列関数も
-// デフォルトではShift-JISを前提としているため、
-// SetUseCharCodeFormat(DX_CHARCODEFORMAT_UTF8)を呼ばない限り
-// (/utf-8も同時に設定しない限り復活させないこと)、両者の解釈が一致し
-// 正しく表示される。
 TitleScene::TitleScene(ISceneChanger& changer)
 	: changer_(changer)
 {
@@ -51,9 +40,7 @@ void TitleScene::Update(float deltaTime)
 		// GameSceneへ直接ではなく、まずReadySceneを挟む
 		// (「スペースキーで勝負」の合図画面 - ReadyScene.h参照)。
 		changer_.ChangeScene(std::make_unique<ReadyScene>(changer_));
-		// 重要: 上のChangeScene()でthisがすでに破棄されている可能性がある
-		// (SceneManagerが現在のシーンを差し替えて削除するため)。
-		// そのため、この呼び出しの後はTitleSceneのメンバに触れてはいけない。
+		
 		return;
 	}
 
