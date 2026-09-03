@@ -10,16 +10,9 @@ namespace
 	// (例: KEY_INPUT_RETURN, KEY_INPUT_Z, ...)。
 	constexpr int kParryKey = KEY_INPUT_SPACE;
 
-<<<<<<< HEAD
 	// 効果音の音量(0=無音 〜 255=最大)。素材そのままだと少し大きめ
 	// だったので、全体的に控えめに下げている。
 	constexpr int kSoundVolume = 170;
-=======
-	// 攻撃が実際に始まる(=Telegraphが終わる)何秒前から「!」警告を
-	// 表示するか。この値がTetimer以上の場合は、Telegraph中ずっと
-	// 表示され続けることになる。
-	constexpr float kWarningLeadTime = 0.4f;
->>>>>>> ececb352d1c772b8197b6b748e8be2a45ac738c0
 
 	// クリア画面の「クリア!」ボックスの位置とサイズ。
 	// TitleSceneのタイトルボックスと同じ考え方(黒背景・白文字・中央揃え)。
@@ -46,7 +39,6 @@ GameScene::GameScene(ISceneChanger& changer)
 
 	backgroundHandle_ = LoadGraph("data/Background.png");
 	clearHandle_ = LoadGraph("data/Clear.png");
-<<<<<<< HEAD
 
 	parrySuccessSoundHandle_ = LoadSoundMem("data/SE/ParrySuccess.mp3");
 	cutSoundHandle_ = LoadSoundMem("data/SE/ParryFail.mp3");
@@ -55,8 +47,6 @@ GameScene::GameScene(ISceneChanger& changer)
 	// 引き継がれる)ので、読み込み直後に一度だけ設定しておけばよい。
 	ChangeVolumeSoundMem(kSoundVolume, parrySuccessSoundHandle_);
 	ChangeVolumeSoundMem(kSoundVolume, cutSoundHandle_);
-=======
->>>>>>> ececb352d1c772b8197b6b748e8be2a45ac738c0
 }
 
 GameScene::~GameScene()
@@ -71,7 +61,6 @@ GameScene::~GameScene()
 		DeleteFontToHandle(clearFontHandle_);
 		clearFontHandle_ = -1;
 	}
-<<<<<<< HEAD
 	if (parrySuccessSoundHandle_ != -1)
 	{
 		DeleteSoundMem(parrySuccessSoundHandle_);
@@ -82,14 +71,10 @@ GameScene::~GameScene()
 		DeleteSoundMem(cutSoundHandle_);
 		cutSoundHandle_ = -1;
 	}
-=======
->>>>>>> ececb352d1c772b8197b6b748e8be2a45ac738c0
 }
 
 void GameScene::Update(float deltaTime)
 {
-	lastDeltaTime_ = deltaTime;
-
 	// キーが「押された瞬間」だけを検出する(押しっぱなしは含めない)。
 	// こうしないと、SPACEを押し続けているだけで何度もパリィしたり
 	// 何度もリスタートしたりしてしまう。
@@ -122,7 +107,6 @@ void GameScene::Update(float deltaTime)
 		isGuardingAfterParry_ = false;
 	}
 
-<<<<<<< HEAD
 	// 敵の攻撃が実際に「当たり」のフレーム(刀が伸びきって軌跡エフェクトが
 	// 出る瞬間、Enemy::kAttackImpactFrameIndex参照)に達した瞬間、パリィの
 	// 成否に関係なく刀を振り抜く音を鳴らす。falseからtrueに変わった
@@ -135,8 +119,6 @@ void GameScene::Update(float deltaTime)
 	}
 	wasPastAttackImpact_ = isPastAttackImpact;
 
-=======
->>>>>>> ececb352d1c772b8197b6b748e8be2a45ac738c0
 	bool isInWindow = enemy_.IsInParryWindow();
 
 	if (isInWindow && !wasInParryWindow_)
@@ -145,29 +127,40 @@ void GameScene::Update(float deltaTime)
 		parriedThisWindow_ = false;
 	}
 
-	if (isInWindow && keyJustPressed && !parriedThisWindow_)
+	if (isInWindow)
 	{
-		parriedThisWindow_ = true;
-		parrySuccessCount_++;
-		// パリィが実際に成功した瞬間にプロテクトのポーズを開始する。
-		// 敵がまだ刀を振っている(Attack)間はこのまま表示し続け、
-		// 上のRecoveryチェックで振り終わったタイミングに合わせて消す。
-		player_.PlayParrySuccess();
-		isGuardingAfterParry_ = true;
-<<<<<<< HEAD
-		// 刀と刀がぶつかる「打ち合い」の音。TopPositionFlag(第3引数)を
-		// TRUEにして、連続でパリィしたときも毎回頭から再生されるようにする。
-		PlaySoundMem(parrySuccessSoundHandle_, DX_PLAYTYPE_BACK, TRUE);
-=======
->>>>>>> ececb352d1c772b8197b6b748e8be2a45ac738c0
+		if (keyJustPressed && !parriedThisWindow_)
+		{
+			parriedThisWindow_ = true;
+			parrySuccessCount_++;
+			// パリィが実際に成功した瞬間にプロテクトのポーズを開始する。
+			// 敵がまだ刀を振っている(Attack)間はこのまま表示し続け、
+			// 上のRecoveryチェックで振り終わったタイミングに合わせて消す。
+			player_.PlayParrySuccess();
+			isGuardingAfterParry_ = true;
+			// 刀と刀がぶつかる「打ち合い」の音。TopPositionFlag(第3引数)を
+			// TRUEにして、連続でパリィしたときも毎回頭から再生されるようにする。
+			PlaySoundMem(parrySuccessSoundHandle_, DX_PLAYTYPE_BACK, TRUE);
+		}
 	}
-
-	if (!isInWindow && wasInParryWindow_ && !parriedThisWindow_)
+	else if (wasInParryWindow_ && !parriedThisWindow_)
 	{
-		// 受付時間が終わったのに、間に合わなかった場合。
+		// 受付時間が終わったのに、間に合わなかった場合(ノーガード)。
 		// 効果音は上の「当たり」フレーム検出のほうで鳴らしているので
 		// (見切れなければ、その音がそのまま「斬られた音」として聞こえる)、
 		// ここでは被弾リアクションとスコアの更新だけを行う。
+		parryFailCount_++;
+		player_.PlayParryFail();
+	}
+	else if (keyJustPressed)
+	{
+		// 受付時間外にSPACEを押した場合(連打対策)。
+		// isInWindowがfalseの間は上のブロックに入らないので、ここに来るのは
+		// 「受付時間ではないのにSPACEを押した」場合だけ。これを何もペナルティ
+		// なしにしてしまうと、タイミングを見ずに連打するだけでクリアできて
+		// しまう。見当違いのタイミングで刀を振る「空振り」として、狙って
+		// 見切ったときと同じように失敗扱いにすることで、闇雲な連打では
+		// クリアできないようにしている。
 		parryFailCount_++;
 		player_.PlayParryFail();
 	}
@@ -237,25 +230,11 @@ void GameScene::Draw()
 		DrawStringToHandle(620, 600, "!", GetColor(255, 220, 0), warningFontHandle_);
 	}
 
-	DrawString(0, 20, "パリィ: SPACE", GetColor(255, 255, 255), 0);
-
-	char successBuf[64];
-	sprintf_s(successBuf, "成功: %d / %d", parrySuccessCount_, kParrySuccessGoal);
-	DrawString(0, 40, successBuf, GetColor(255, 255, 255), 0);
-
-	char failBuf[64];
-	sprintf_s(failBuf, "失敗: %d / %d", parryFailCount_, kParryFailLimit);
-	DrawString(0, 60, failBuf, GetColor(255, 255, 255), 0);
-
-	// 動作が重い環境の切り分け用の簡易デバッグ表示。
-	// 1フレームの実時間(ミリ秒)とおおよそのFPSを表示する。
-	// この値が異常に大きい/小さいままなら、ステートの進みが遅い原因は
-	// ロジック側ではなく、そもそも1フレームの実行に時間がかかっている
-	// (=処理が重い)ことになる。
-	char frameBuf[64];
-	float fps = (lastDeltaTime_ > 0.0f) ? (1.0f / lastDeltaTime_) : 0.0f;
-	sprintf_s(frameBuf, "Frame: %.1fms (%.1fFPS)", lastDeltaTime_ * 1000.0f, fps);
-	DrawString(0, 80, frameBuf, GetColor(255, 255, 0), 0);
+	// 「!」が出たらSPACEを押す、という操作方法や勝敗条件、デバッグ用の
+	// フレーム情報は、対戦前のReadyScene(「スペースキーで勝負」画面)側で
+	// まとめて表示するようにしたので、ここ(プレイ中のHUD)には出さない。
+	// 理由: プレイ中の画面はできるだけシンプルにして、対戦そのものに
+	// 集中してもらいたいため。
 
 	// Cleared以外でこのDraw()に来るのはPlaying(通常プレイ中)と
 	// GameOverの2パターンがあるので、ここは必ずGameOverかどうかを

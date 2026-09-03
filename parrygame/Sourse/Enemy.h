@@ -37,22 +37,16 @@ public:
 	float Timer = 0.0f;
 
 	// 1回の攻撃サイクル = Idtimer + Tetimer + Attimer + Retimer。
-<<<<<<< HEAD
 	// 4つまとめて倍率をかければテンポの速さ/遅さを調整できる -
 	// Telegraphが一番長く、一番「見て反応しやすい」フェーズであるという
 	// 比率はできるだけ保つこと。
-	float Idtimer = 0.2f;
-	float Tetimer = 0.1f;
-	float Attimer = 0.07f;
-	float Retimer = 0.1f;
-=======
-	// 4つまとめて倍率をかければテンポの速さ/遅さを調整できる 
-	
+	// テスト用に全体を10倍遅くしている(元の値: 0.2f / 0.1f / 0.07f / 0.1f)。
+	// 戦闘のテンポが意図通りか確認できたら、元の値に戻すか、
+	// 好みのテンポに再調整する。
 	float Idtimer = 2.0f;
 	float Tetimer = 1.0f;
-	float Attimer = 2.0f;
+	float Attimer = 0.7f;
 	float Retimer = 1.0f;
->>>>>>> ececb352d1c772b8197b6b748e8be2a45ac738c0
 
 	// パリィ受付時間の調整。
 	// 刀が「当たり」の絵になる瞬間(kAttackImpactFrameIndex参照)の
@@ -63,8 +57,11 @@ public:
 	// 動作はするが、その分は実質的に切り詰められる(前者はTelegraph開始
 	// より前には遡れず、後者はRecoveryに入った瞬間に強制的に受付終了
 	// するため)。
-	float ParryWindowBeforeAttack = 0.06f;
-	float ParryWindowAfterAttack = 0.04f;
+	// こちらもテンポに合わせて同じ倍率(10倍)で伸ばしてある
+	// (元の値: 0.06f / 0.04f)。受付時間だけ相対的に広がったり
+	// 狭まったりしないよう、他のタイマーと同じ比率を保っている。
+	float ParryWindowBeforeAttack = 0.6f;
+	float ParryWindowAfterAttack = 0.4f;
 
 private:
 	// スプライトシートを読み込み、フレームごとに分割する。

@@ -155,7 +155,6 @@ bool Enemy::IsInParryWindow() const
 	{
 		timeUntilImpact = impactTimeInAttack - Timer;
 	}
-<<<<<<< HEAD
 	else
 	{
 		return false;
@@ -172,7 +171,4 @@ bool Enemy::IsPastAttackImpact() const
 	}
 	float impactTimeInAttack = Attimer * kAttackImpactFrameIndex / kAttackFrameCount;
 	return Timer >= impactTimeInAttack;
-=======
-	return false;
->>>>>>> ececb352d1c772b8197b6b748e8be2a45ac738c0
 }

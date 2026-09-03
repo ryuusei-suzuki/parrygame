@@ -1,5 +1,5 @@
 ﻿#include "TitleScene.h"
-#include "GameScene.h"
+#include "ReadyScene.h"
 #include <cstring>
 
 // 以下の日本語の文字列リテラル("見切り侍"、"プレイ")についての補足:
@@ -48,7 +48,9 @@ void TitleScene::Update(float deltaTime)
 
 	if (isHover && GetMouseInput() & MOUSE_INPUT_LEFT)
 	{
-		changer_.ChangeScene(std::make_unique<GameScene>(changer_));
+		// GameSceneへ直接ではなく、まずReadySceneを挟む
+		// (「スペースキーで勝負」の合図画面 - ReadyScene.h参照)。
+		changer_.ChangeScene(std::make_unique<ReadyScene>(changer_));
 		// 重要: 上のChangeScene()でthisがすでに破棄されている可能性がある
 		// (SceneManagerが現在のシーンを差し替えて削除するため)。
 		// そのため、この呼び出しの後はTitleSceneのメンバに触れてはいけない。
