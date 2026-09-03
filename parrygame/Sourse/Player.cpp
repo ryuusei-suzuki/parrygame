@@ -61,7 +61,13 @@ int Player::FrameIndex(float timer, float duration, int frameCount)
 
 void Player::PlayParrySuccess()
 {
-	successTimer_ = kParrySuccessDuration;
+	isGuarding_ = true;
+	guardAnimTimer_ = 0.0f;
+}
+
+void Player::EndParrySuccess()
+{
+	isGuarding_ = false;
 }
 
 void Player::PlayParryFail()
@@ -73,13 +79,9 @@ void Player::Update(float deltaTime)
 {
 	idleTimer_ += deltaTime;
 
-	if (successTimer_ > 0.0f)
+	if (isGuarding_)
 	{
-		successTimer_ -= deltaTime;
-		if (successTimer_ < 0.0f)
-		{
-			successTimer_ = 0.0f;
-		}
+		guardAnimTimer_ += deltaTime;
 	}
 
 	if (hurtTimer_ > 0.0f)
@@ -103,14 +105,18 @@ void Player::Draw()
 		float elapsed = kHurtDuration - hurtTimer_;
 		handle = hurtHandles_[FrameIndex(elapsed, kHurtDuration, kHurtFrameCount)];
 	}
-	else if (successTimer_ > 0.0f)
+	else if (isGuarding_)
 	{
-		// successTimer_がkParrySuccessDurationから0へ減っていくのに
-		// 合わせて、最初のフレームから最後のフレームへ再生する -
-		// パリィ成功の瞬間にだけ出る、一瞬のガード/パリィフラッシュ。
-		// 敵の攻撃タイミングには同期していない。
-		float elapsed = kParrySuccessDuration - successTimer_;
-		handle = parryHandles_[FrameIndex(elapsed, kParrySuccessDuration, kParryFrameCount)];
+		// プロテクトの動作(0->kParryFrameCount-1)は1回だけ再生し、
+		// 最後まで行ったら最終フレームで止める(ループさせない)。
+		// 表示自体はEndParrySuccess()が呼ばれるまで、つまり敵が刀を
+		// 振り終わるまで続く。
+		int frame = static_cast<int>(guardAnimTimer_ / kGuardFrameDuration);
+		if (frame > kParryFrameCount - 1)
+		{
+			frame = kParryFrameCount - 1;
+		}
+		handle = parryHandles_[frame];
 	}
 	else
 	{

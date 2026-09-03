@@ -31,10 +31,10 @@ public:
 	// 1回の攻撃サイクル = Idtimer + Tetimer + Attimer + Retimer。
 	// 4つまとめて倍率をかければテンポの速さ/遅さを調整できる 
 	
-	float Idtimer = 0.2f;
-	float Tetimer = 0.1f;
-	float Attimer = 0.07f;
-	float Retimer = 0.1f;
+	float Idtimer = 2.0f;
+	float Tetimer = 1.0f;
+	float Attimer = 2.0f;
+	float Retimer = 1.0f;
 
 	// パリィ受付時間の調整。
 	// Telegraphが終わる何秒前から受付が始まるか、Attackが始まって

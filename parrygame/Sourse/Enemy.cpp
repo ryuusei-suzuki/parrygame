@@ -55,40 +55,56 @@ int Enemy::FrameIndex(float timer, float duration, int frameCount)
 
 void Enemy::Update(float deltaTime)
 {
-	switch (state_)
+	Timer += deltaTime;
+
+	// whileループにしているのは、フレームレートが極端に低いPCなどで
+	// 1回のUpdate呼び出しに渡されるdeltaTimeが大きくなった場合に
+	// 対応するため。以前はif文1つだけだったので、1回のUpdateで
+	// 複数の状態をまたぐほど時間が経過していても遷移が1回しか
+	// 起こらず、その分Timerが0にリセットされて余りの時間が
+	// 消えてしまっていた。フレームがまばらにしか来ない環境だと、
+	// これが積み重なって「ステートが一周するのに何十秒もかかる」
+	// ように見える原因になる。ここでは超過分(Timer -= 各durationの
+	// 余り)を次の状態に持ち越しながら、必要な回数だけ遷移させている。
+	bool transitioned = true;
+	while (transitioned)
 	{
-	case State::Idle:
-		Timer += deltaTime;
-		if (Timer >= Idtimer)
+		transitioned = false;
+		switch (state_)
 		{
-			state_ = State::Telegraph;
-			Timer = 0.0f;
+		case State::Idle:
+			if (Timer >= Idtimer)
+			{
+				Timer -= Idtimer;
+				state_ = State::Telegraph;
+				transitioned = true;
+			}
+			break;
+		case State::Telegraph:
+			if (Timer >= Tetimer)
+			{
+				Timer -= Tetimer;
+				state_ = State::Attack;
+				transitioned = true;
+			}
+			break;
+		case State::Attack:
+			if (Timer >= Attimer)
+			{
+				Timer -= Attimer;
+				state_ = State::Recovery;
+				transitioned = true;
+			}
+			break;
+		case State::Recovery:
+			if (Timer >= Retimer)
+			{
+				Timer -= Retimer;
+				state_ = State::Idle;
+				transitioned = true;
+			}
+			break;
 		}
-		break;
-	case State::Telegraph:
-		Timer += deltaTime;
-		if (Timer >= Tetimer)
-		{
-			state_ = State::Attack;
-			Timer = 0.0f;
-		}
-		break;
-	case State::Attack:
-		Timer += deltaTime;
-		if (Timer >= Attimer)
-		{
-			state_ = State::Recovery;
-			Timer = 0.0f;
-		}
-		break;
-	case State::Recovery:
-		Timer += deltaTime;
-		if (Timer >= Retimer)
-		{
-			state_ = State::Idle;
-			Timer = 0.0f;
-		}
-		break;
 	}
 }
 
