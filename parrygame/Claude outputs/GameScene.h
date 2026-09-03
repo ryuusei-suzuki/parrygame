@@ -34,9 +34,9 @@ private:
 	bool parriedThisWindow_ = false;     // 今回の受付中にすでにパリィを成功させたか
 	bool prevKeyDown_ = false;           // キーが「押された瞬間」を検出するための直前フレームの状態
 	bool isGuardingAfterParry_ = false;  // パリィ成功後、まだプレイヤーがプロテクトポーズ中か
-	// (敵がRecoveryに入ったらEndParrySuccess()で解除する)
+	                                      // (敵がRecoveryに入ったらEndParrySuccess()で解除する)
 	bool wasPastAttackImpact_ = false;   // 直前のフレームで、敵の攻撃が「当たり」のフレームを
-	// 過ぎていたか(Enemy::IsPastAttackImpact参照)
+	                                      // 過ぎていたか(Enemy::IsPastAttackImpact参照)
 
 	int parrySuccessCount_ = 0;
 	int parryFailCount_ = 0;
