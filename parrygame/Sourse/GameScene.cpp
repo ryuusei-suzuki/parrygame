@@ -10,9 +10,16 @@ namespace
 	// (例: KEY_INPUT_RETURN, KEY_INPUT_Z, ...)。
 	constexpr int kParryKey = KEY_INPUT_SPACE;
 
+<<<<<<< HEAD
 	// 効果音の音量(0=無音 〜 255=最大)。素材そのままだと少し大きめ
 	// だったので、全体的に控えめに下げている。
 	constexpr int kSoundVolume = 170;
+=======
+	// 攻撃が実際に始まる(=Telegraphが終わる)何秒前から「!」警告を
+	// 表示するか。この値がTetimer以上の場合は、Telegraph中ずっと
+	// 表示され続けることになる。
+	constexpr float kWarningLeadTime = 0.4f;
+>>>>>>> ececb352d1c772b8197b6b748e8be2a45ac738c0
 
 	// クリア画面の「クリア!」ボックスの位置とサイズ。
 	// TitleSceneのタイトルボックスと同じ考え方(黒背景・白文字・中央揃え)。
@@ -39,6 +46,7 @@ GameScene::GameScene(ISceneChanger& changer)
 
 	backgroundHandle_ = LoadGraph("data/Background.png");
 	clearHandle_ = LoadGraph("data/Clear.png");
+<<<<<<< HEAD
 
 	parrySuccessSoundHandle_ = LoadSoundMem("data/SE/ParrySuccess.mp3");
 	cutSoundHandle_ = LoadSoundMem("data/SE/ParryFail.mp3");
@@ -47,6 +55,8 @@ GameScene::GameScene(ISceneChanger& changer)
 	// 引き継がれる)ので、読み込み直後に一度だけ設定しておけばよい。
 	ChangeVolumeSoundMem(kSoundVolume, parrySuccessSoundHandle_);
 	ChangeVolumeSoundMem(kSoundVolume, cutSoundHandle_);
+=======
+>>>>>>> ececb352d1c772b8197b6b748e8be2a45ac738c0
 }
 
 GameScene::~GameScene()
@@ -61,6 +71,7 @@ GameScene::~GameScene()
 		DeleteFontToHandle(clearFontHandle_);
 		clearFontHandle_ = -1;
 	}
+<<<<<<< HEAD
 	if (parrySuccessSoundHandle_ != -1)
 	{
 		DeleteSoundMem(parrySuccessSoundHandle_);
@@ -71,6 +82,8 @@ GameScene::~GameScene()
 		DeleteSoundMem(cutSoundHandle_);
 		cutSoundHandle_ = -1;
 	}
+=======
+>>>>>>> ececb352d1c772b8197b6b748e8be2a45ac738c0
 }
 
 void GameScene::Update(float deltaTime)
@@ -109,6 +122,7 @@ void GameScene::Update(float deltaTime)
 		isGuardingAfterParry_ = false;
 	}
 
+<<<<<<< HEAD
 	// 敵の攻撃が実際に「当たり」のフレーム(刀が伸びきって軌跡エフェクトが
 	// 出る瞬間、Enemy::kAttackImpactFrameIndex参照)に達した瞬間、パリィの
 	// 成否に関係なく刀を振り抜く音を鳴らす。falseからtrueに変わった
@@ -121,6 +135,8 @@ void GameScene::Update(float deltaTime)
 	}
 	wasPastAttackImpact_ = isPastAttackImpact;
 
+=======
+>>>>>>> ececb352d1c772b8197b6b748e8be2a45ac738c0
 	bool isInWindow = enemy_.IsInParryWindow();
 
 	if (isInWindow && !wasInParryWindow_)
@@ -138,9 +154,12 @@ void GameScene::Update(float deltaTime)
 		// 上のRecoveryチェックで振り終わったタイミングに合わせて消す。
 		player_.PlayParrySuccess();
 		isGuardingAfterParry_ = true;
+<<<<<<< HEAD
 		// 刀と刀がぶつかる「打ち合い」の音。TopPositionFlag(第3引数)を
 		// TRUEにして、連続でパリィしたときも毎回頭から再生されるようにする。
 		PlaySoundMem(parrySuccessSoundHandle_, DX_PLAYTYPE_BACK, TRUE);
+=======
+>>>>>>> ececb352d1c772b8197b6b748e8be2a45ac738c0
 	}
 
 	if (!isInWindow && wasInParryWindow_ && !parriedThisWindow_)

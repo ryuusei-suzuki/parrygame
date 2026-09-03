@@ -37,6 +37,7 @@ public:
 	float Timer = 0.0f;
 
 	// 1回の攻撃サイクル = Idtimer + Tetimer + Attimer + Retimer。
+<<<<<<< HEAD
 	// 4つまとめて倍率をかければテンポの速さ/遅さを調整できる -
 	// Telegraphが一番長く、一番「見て反応しやすい」フェーズであるという
 	// 比率はできるだけ保つこと。
@@ -44,6 +45,14 @@ public:
 	float Tetimer = 0.1f;
 	float Attimer = 0.07f;
 	float Retimer = 0.1f;
+=======
+	// 4つまとめて倍率をかければテンポの速さ/遅さを調整できる 
+	
+	float Idtimer = 2.0f;
+	float Tetimer = 1.0f;
+	float Attimer = 2.0f;
+	float Retimer = 1.0f;
+>>>>>>> ececb352d1c772b8197b6b748e8be2a45ac738c0
 
 	// パリィ受付時間の調整。
 	// 刀が「当たり」の絵になる瞬間(kAttackImpactFrameIndex参照)の
