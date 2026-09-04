@@ -16,8 +16,8 @@ namespace
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
-	SetGraphMode(1280, 720, 32);
-	ChangeWindowMode(TRUE);
+	SetGraphMode(1280, 720, 32);   // 画面解像度を1280x720、32bitカラーに設定
+	ChangeWindowMode(FALSE);       // FALSE = フルスクリーンで起動(TRUEにするとウィンドウ表示)
 
 	// これを設定しないと、ゲームウィンドウが非アクティブな間はDxLibが
 	// Update/Drawの実行をほぼ止めてしまい、ウィンドウをクリックしたり
