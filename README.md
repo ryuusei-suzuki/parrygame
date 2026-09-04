@@ -83,5 +83,5 @@ parrygame/
   調整しています。ライセンス: https://craftpix.net/file-licenses/
 - 背景画像(タイトル/バトル/クリア)は本プロジェクト用に加工・作成したものです。
 
-プレイ画面のスクリーンショット
+## プレイ画面のスクリーンショット
 <img width="1588" height="925" alt="image" src="https://github.com/user-attachments/assets/dcd7d6d1-e7fa-404f-83af-9d2d2d61b382" />
