@@ -1,4 +1,4 @@
-# 見切り侍 (Mikiri Zamurai)
+# 見切り侍 
 
 一対一で相対した敵武将の斬撃を、ぎりぎりのタイミングで「見切り(パリィ)」する。
 それだけに焦点を絞った、2Dサムライ対決アクションゲームです。
@@ -82,3 +82,6 @@ parrygame/
   Samurai系フリー素材パックを使用し、向き(左右反転)のみ本プロジェクト用に
   調整しています。ライセンス: https://craftpix.net/file-licenses/
 - 背景画像(タイトル/バトル/クリア)は本プロジェクト用に加工・作成したものです。
+
+## プレイ画面のスクリーンショット
+<img width="1588" height="925" alt="image" src="https://github.com/user-attachments/assets/dcd7d6d1-e7fa-404f-83af-9d2d2d61b382" />
